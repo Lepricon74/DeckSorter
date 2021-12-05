@@ -1,0 +1,29 @@
+.cardsregion {
+    margin: auto;
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cardblock {
+    padding: 10px 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    background: #fff;
+    box-shadow: 0 0 25px rgb(40 47 60 / 5%), 0 20px 25px rgb(40 47 60 / 5%), 0 3px 4px rgb(40 47 60 / 5%);
+}
+
+.cardimagediv {
+    position: relative;
+    width: 45px;
+    height: 70px;
+}
+
+.cardimagediv > img{   
+    background-color: #fff;        
+    width: 100%;
+	height: 100%;
+}

@@ -1,0 +1,30 @@
+﻿@using DeckSorter.Models.ViewModels
+@model List<DeckShortViewModel>
+@{
+	ViewData["Title"] = "Decks List";
+	int rows = (Model.Count / 6);
+}
+<link rel="stylesheet" href="~/css/deckslist.css" />
+<h4>Доступно @Model.Count колод</h4>
+<div class="decksregion">
+	@for (int i = 0; i <= rows; i++)
+	{
+	<div class="decksrow">
+		@for (int j = 0; j <= 4; j++)
+		{
+			int index = i * 5 + j;
+			if (index >= Model.Count) break;
+			string deckPath = "/decks/" + Model[index].Id;
+			<a href=@deckPath>
+				<div class="deckblock">
+					<div class="deckimagediv">
+						<img src="~/cards/preview.png" alt="">
+					</div>
+					<span class="name">@Model[index].Name</span>
+					<span class="size">@Model[index].Size</span>
+				</div>
+			</a>
+		}
+	</div>
+	}
+</div>

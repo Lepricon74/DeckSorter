@@ -1,0 +1,23 @@
+﻿@model DeckSorter.Models.ViewModels.DeckCreateViewModel
+<div class="form deckcreate-form">
+	<h2>Создание новой колоды</h2>
+	<hr />
+	<form class="create" asp-action="DeckCreate" asp-controller="Home" asp-anti-forgery="true">
+		<div class="validation" asp-validation-summary="ModelOnly" />
+		<div class="form-body">
+			<section class="form-section">
+				<label asp-for="Name">Введите имя колоды</label>
+				<input class="input-field" type="text" asp-for="Name" />
+				<span asp-validation-for="Name"></span>
+			</section>
+			<section class="form-section">
+				<label asp-for="Size">Введите размер колоды</label>
+				<input class="input-field" type="number" asp-for="Size" value="52" />
+				<span asp-validation-for="Size"></span>
+			</section>			
+			<section class="form-section">
+				<input class="submit-button" type="submit" value="Создать" />
+			</section>			
+		</div>
+	</form>
+</div>
