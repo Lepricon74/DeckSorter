@@ -11,6 +11,7 @@ using DeckSorter.Models.BaseModels;
 using DeckSorter.DBRepository;
 using DeckSorter.DBRepository.Interfaces;
 using DeckSorter.DBRepository.Repositories;
+using DeckSorter.Functionality;
 
 namespace DeckSorter.Controllers
 {
@@ -34,15 +35,31 @@ namespace DeckSorter.Controllers
         [Route("decks")]
         public IActionResult DecksList()
         {
-            List<DeckShortViewModel> decks = deckRepository.GetDecksList();
-            return View(decks);
+            List<DeckShortViewModel> decksView = deckRepository.GetDecksList().Select(deck => new DeckShortViewModel
+                                    {
+                                        Id = deck.Id,
+                                        Size = deck.Size,
+                                        Name = deck.Name,
+                                    }).ToList();
+            return View(decksView);
         }
 
         [Route("decks/{deckId:int}")]
         public IActionResult DeckDetail(int deckId)
         {
-            DeckViewModel deck = deckRepository.GetDetailDeck(deckId);
-            return View(deck);
+            Deck deck = deckRepository.GetDetailDeck(deckId);
+            DeckViewModel deckView = new DeckViewModel { Id = deck.Id, Name = deck.Name, Size = deck.Size, Cards = deck.Cards.Split(',') };
+            return View(deckView);
+        }
+
+        //[Route("decks/{deckId:int}/simpleshuffle")]
+        [HttpPost]
+        public IActionResult SimpleShuffle(int deckId)
+        {
+            Deck deck = deckRepository.GetDetailDeck(deckId);
+            string newCards =string.Join(",", Shuffle.SimpleDeckShuffle(deck.Cards.Split(",")));
+            deckRepository.UpdateDeck(deck.Id,newCards);
+            return Redirect("~/decks/"+deck.Id);
         }
 
         [Route("decks/create")]
@@ -52,9 +69,8 @@ namespace DeckSorter.Controllers
             return View();
         }
 
-        [Route("decks/create")]
         [HttpPost]
-        public IActionResult DeckCreate(BaseDeck model)
+        public IActionResult DeckCreate(DeckCreateViewModel model)
         {
             const string STANDARTDECK52 = "101,102,103,104,105,106,107,108,109,110,111,112,113," +
                                           "201,202,203,204,205,206,207,208,209,210,211,212,213," +

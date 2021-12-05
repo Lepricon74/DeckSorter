@@ -33,15 +33,10 @@ namespace DeckSorter.DBRepository.Repositories
 			Save();
 			return 1;
 		}
-		public List<DeckShortViewModel> GetDecksList()
+		public List<Deck> GetDecksList()
 		{
 			//выбираем колоды из таблицы Decks
-			return db.Decks.Select(deck => new DeckShortViewModel
-			{ 
-								Id = deck.Id,
-								Size=deck.Size,
-								Name = deck.Name,})						
-							.ToList();
+			return db.Decks.ToList();
 		}
 		public int UpdateDeck(int deckId, string newCards)
 		{
@@ -56,10 +51,9 @@ namespace DeckSorter.DBRepository.Repositories
 			Save();
 			return 1;
 		}
-		public DeckViewModel GetDetailDeck(int deckId)
+		public Deck GetDetailDeck(int deckId)
 		{
-			Deck deck = db.Decks.FirstOrDefault(deck => deck.Id == deckId);
-			DeckViewModel resultDeck = new DeckViewModel { Id = deck.Id, Name = deck.Name, Size = deck.Size, Cards = deck.Cards.Split(',') };
+			Deck resultDeck = db.Decks.FirstOrDefault(deck => deck.Id == deckId);			
 			return resultDeck;
 		}
 

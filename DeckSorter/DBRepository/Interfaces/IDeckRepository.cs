@@ -13,9 +13,9 @@ namespace DeckSorter.DBRepository.Interfaces
     {
         int CreateDeck(Deck newDeck);
         int RemoveDeck(int deckId);
-        List<DeckShortViewModel> GetDecksList();
+        List<Deck> GetDecksList();
         int UpdateDeck(int deckId, string newCards);
-        DeckViewModel GetDetailDeck(int deckId);
+        Deck GetDetailDeck(int deckId);
         int GetNewDeckId();
     }
 }
