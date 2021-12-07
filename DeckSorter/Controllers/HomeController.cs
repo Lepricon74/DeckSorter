@@ -103,8 +103,7 @@ namespace DeckSorter.Controllers
         {         
             if (ModelState.IsValid)
             {
-                int newDeckId = deckRepository.GetNewDeckId();
-                Deck newDeck = new Deck { Id = newDeckId, Size = model.Size,Name = model.Name,Cards = DeckGenerator.GetDeckBySize(model.Size) };
+                Deck newDeck = new Deck {Size = model.Size,Name = model.Name,Cards = DeckGenerator.GetDeckBySize(model.Size) };
                 // добавляем пользователя
                 var result = deckRepository.CreateDeck(newDeck);
                 return Redirect("~/decks");

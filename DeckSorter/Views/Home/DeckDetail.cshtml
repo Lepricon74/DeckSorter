@@ -28,8 +28,14 @@
 	{
 		string imageName = Model.Cards[i];
 		string imagePath = "../cards/" + imageName + ".png";
-		int first = (((int)Char.GetNumericValue(imageName[0])) - 1) * 13;
+		int first=0;
+		if (Model.Size == 52)
+		{
+			first = (((int)Char.GetNumericValue(imageName[0])) - 1) * 13;
+		}
+		else first = (((int)Char.GetNumericValue(imageName[0])) - 1) * 9;
 		int second = Convert.ToInt32(imageName.Substring(1));
+		if ((second > 1) && (Model.Size == 36)) second -= 4;
 		int name = first + second;
 		<div class="cardblock">
 			<div class="cardimagediv">

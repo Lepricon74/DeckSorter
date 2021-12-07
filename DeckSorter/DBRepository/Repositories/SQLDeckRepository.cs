@@ -57,16 +57,16 @@ namespace DeckSorter.DBRepository.Repositories
 			return resultDeck;
 		}
 
-		public int GetNewDeckId()
-		{
-			var decksList = db.Decks.Select(deck => new DeckShortViewModel
-			{
-										Id = deck.Id,
-										Name = deck.Name,
-										Size = deck.Size,
-									}).ToList();
-			return (decksList.Count() == 0) ? 1 : decksList.Last().Id + 1;
-		}
+		//public int GetNewDeckId()
+		//{
+		//	var decksList = db.Decks.Select(deck => new DeckShortViewModel
+		//	{
+		//								Id = deck.Id,
+		//								Name = deck.Name,
+		//								Size = deck.Size,
+		//							}).ToList();
+		//	return (decksList.Count() == 0) ? 1 : decksList.Last().Id + 1;
+		//}
 		private void Save()
         {
             db.SaveChanges();

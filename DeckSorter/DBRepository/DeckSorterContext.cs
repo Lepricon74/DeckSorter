@@ -15,6 +15,7 @@ namespace DeckSorter.DBRepository
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Deck>().HasKey(u => new { u.Id });
+            modelBuilder.Entity<Deck>().Property(u => u.Id).UseIdentityAlwaysColumn();
         }
     }
 }

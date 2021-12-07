@@ -16,6 +16,6 @@ namespace DeckSorter.DBRepository.Interfaces
         List<Deck> GetDecksList();
         int UpdateDeck(int deckId, string newCards);
         Deck GetDetailDeck(int deckId);
-        int GetNewDeckId();
+        //int GetNewDeckId();
     }
 }
