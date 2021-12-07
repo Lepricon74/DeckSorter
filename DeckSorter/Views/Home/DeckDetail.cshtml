@@ -5,19 +5,33 @@
 }
 <link rel="stylesheet" href="~/css/cardslist.css" />
 <h3>Колода "@Model.Name"</h3>
-<form class="update" asp-action="SimpleShuffle" asp-controller="Home" asp-anti-forgery="true" method="post">
+<div class="buttonsRegion">
+	<form class="updateButton" asp-action="SimpleShuffle" asp-controller="Home" asp-anti-forgery="true" method="post">
 		<input type="hidden" name="deckId" value=@Model.Id>
-		<input class="submit-button" type="submit" value="Перетасовать" />
-</form>
+		<input class="submit-button" type="submit" value="Перетасовать (компьютер)" />
+	</form>
+	<form class="updateButton" asp-action="ManualShuffleEmulation" asp-controller="Home" asp-anti-forgery="true" method="post">
+		<input type="hidden" name="deckId" value=@Model.Id>
+		<input class="submit-button" type="submit" value="Перетасовать (человек)" />
+	</form>
+	<form class="updateButton" asp-action="DeckRemove" asp-controller="Home" asp-anti-forgery="true" method="post">
+		<input type="hidden" name="deckId" value=@Model.Id>
+		<input class="submit-delete-button" type="submit" value="Удалить колоду" />
+	</form>
+</div>
 <div class="cardsregion">
-			@for (int i = 0; i < Model.Cards.Length; i++)
-			{
-				string imagePath = "../cards/" + Model.Cards[i] + ".png";
-				<div class="cardblock">
-					<div class="cardimagediv">
-						<img src=@imagePath alt="">
-					</div>
-					<span class="name">@(i+1)</span>				
-				</div>
-			}
+	@for (int i = 0; i < Model.Cards.Length; i++)
+	{
+		string imageName = Model.Cards[i];
+		string imagePath = "../cards/" + imageName + ".png";
+		int first = (((int)Char.GetNumericValue(imageName[0])) - 1) * 13;
+		int second = Convert.ToInt32(imageName.Substring(1));
+		int name = first + second;
+		<div class="cardblock">
+			<div class="cardimagediv">
+				<img src=@imagePath alt="">
+			</div>
+			<span class="name">@name</span>
+		</div>
+	}
 </div>

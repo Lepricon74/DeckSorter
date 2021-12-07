@@ -41,7 +41,7 @@ namespace DeckSorter.Controllers
                                         Size = deck.Size,
                                         Name = deck.Name,
                                     }).ToList();
-            return View(decksView);
+            return View(decksView.OrderBy(x => x.Id).ToList());
         }
 
         [Route("decks/{deckId:int}")]
@@ -57,9 +57,25 @@ namespace DeckSorter.Controllers
         public IActionResult SimpleShuffle(int deckId)
         {
             Deck deck = deckRepository.GetDetailDeck(deckId);
-            string newCards =string.Join(",", Shuffle.SimpleDeckShuffle(deck.Cards.Split(",")));
+            string newCards =string.Join(",", Shuffle.SimpleShuffle(deck.Cards.Split(",")));
             deckRepository.UpdateDeck(deck.Id,newCards);
             return Redirect("~/decks/"+deck.Id);
+        }
+
+        [HttpPost]
+        public IActionResult ManualShuffleEmulation(int deckId)
+        {
+            Deck deck = deckRepository.GetDetailDeck(deckId);
+            string newCards = string.Join(",", Shuffle.ManualShuffleEmulation(deck.Cards.Split(",")));
+            deckRepository.UpdateDeck(deck.Id, newCards);
+            return Redirect("~/decks/" + deck.Id);
+        }
+
+        [HttpPost]
+        public IActionResult DeckRemove(int deckId)
+        {
+            deckRepository.RemoveDeck(deckId);
+            return Redirect("~/decks");
         }
 
         [Route("decks/create")]
