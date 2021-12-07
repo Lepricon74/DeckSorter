@@ -6,6 +6,10 @@
 <link rel="stylesheet" href="~/css/cardslist.css" />
 <h3>Колода "@Model.Name"</h3>
 <div class="buttonsRegion">
+	<form class="updateButton" asp-action="ReturnToOriginalState" asp-controller="Home" asp-anti-forgery="true" method="post">
+		<input type="hidden" name="deckId" value=@Model.Id>
+		<input class="submit-button" type="submit" value="Упорядочить" />
+	</form>
 	<form class="updateButton" asp-action="SimpleShuffle" asp-controller="Home" asp-anti-forgery="true" method="post">
 		<input type="hidden" name="deckId" value=@Model.Id>
 		<input class="submit-button" type="submit" value="Перетасовать (компьютер)" />

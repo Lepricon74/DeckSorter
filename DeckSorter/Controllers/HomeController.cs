@@ -52,6 +52,18 @@ namespace DeckSorter.Controllers
             return View(deckView);
         }
 
+        [HttpPost]
+        public IActionResult ReturnToOriginalState(int deckId)
+        {
+            Deck deck = deckRepository.GetDetailDeck(deckId);
+            if (deck != null)
+            {
+                string originalCardsState = DeckGenerator.GetDeckBySize(deck.Size);
+                deckRepository.UpdateDeck(deck.Id, originalCardsState);
+            }
+            return Redirect("~/decks/" + deck.Id);
+        }
+
         //[Route("decks/{deckId:int}/simpleshuffle")]
         [HttpPost]
         public IActionResult SimpleShuffle(int deckId)
@@ -85,24 +97,22 @@ namespace DeckSorter.Controllers
             return View();
         }
 
+        [Route("decks/create")]
         [HttpPost]
         public IActionResult DeckCreate(DeckCreateViewModel model)
-        {
-            const string STANDARTDECK52 = "101,102,103,104,105,106,107,108,109,110,111,112,113," +
-                                          "201,202,203,204,205,206,207,208,209,210,211,212,213," +
-                                          "301,302,303,304,305,306,307,308,309,310,311,312,313," +
-                                          "401,402,403,404,405,406,407,408,409,410,411,412,413";
-
+        {         
             if (ModelState.IsValid)
             {
                 int newDeckId = deckRepository.GetNewDeckId();
-                Deck newDeck = new Deck { Id = newDeckId, Size = model.Size,Name = model.Name,Cards = STANDARTDECK52 };
+                Deck newDeck = new Deck { Id = newDeckId, Size = model.Size,Name = model.Name,Cards = DeckGenerator.GetDeckBySize(model.Size) };
                 // добавляем пользователя
                 var result = deckRepository.CreateDeck(newDeck);
                 return Redirect("~/decks");
             }
             return View(model);
         }
+
+        
 
     }
 }
