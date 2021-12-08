@@ -27,8 +27,8 @@ namespace DeckSorter
         public void ConfigureServices(IServiceCollection services)
         {
             //Получаем строку подключения к БД из файла appsettings.json
-            string connection = Configuration.GetConnectionString("PostgreSQLLocalConnection");
-            //string connection = Configuration.GetConnectionString("PostgreSQLExternalConnection");
+            //string connection = Configuration.GetConnectionString("PostgreSQLLocalConnection");
+            string connection = Configuration.GetConnectionString("PostgreSQLExternalConnection");
             //Добавляем контекст DeckSorterContext в качестве сервиса в приложение
             services.AddDbContext<DeckSorterContext>(options => options.UseNpgsql(connection));
 
