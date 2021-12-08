@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DeckSorter.Models.BaseModels;
 using System.ComponentModel.DataAnnotations;
 
+//Модели-представлений
 namespace DeckSorter.Models.ViewModels
 {
     public class DeckViewModel : BaseDeck

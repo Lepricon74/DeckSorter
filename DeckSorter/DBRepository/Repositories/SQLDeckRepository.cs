@@ -12,61 +12,59 @@ namespace DeckSorter.DBRepository.Repositories
     public class SQLDeckRepository : IDeckRepository
     {
 		private DeckSorterContext db;
+
+		//Т.к. контекст был зарегистривован в качестве сервиса - можем его передавать в констукторы классов: 
 		public SQLDeckRepository(DeckSorterContext _db)
 		{
 			db = _db;
 		}
 
+		//Создание новой колоды
 		public int CreateDeck(Deck newDeck)
         {
 			db.Decks.Add(newDeck);
 			Save();
-			return 1;
+			return 0;
 		}
+		//Удаление колоды
 		public int RemoveDeck(int deckId)
 		{
 			Deck deckToRemove = db.Decks
 					.Where(deck => deck.Id == deckId)
 					.FirstOrDefault();
-			if (deckToRemove == null) return 0;
+			//Проверяем, что колода с перданным Id была найдена
+			if (deckToRemove == null) return 1;
 			db.Decks.Remove(deckToRemove);
 			Save();
-			return 1;
+			return 0;
 		}
+		//Получение всех колод
 		public List<Deck> GetDecksList()
 		{
 			//выбираем колоды из таблицы Decks
 			return db.Decks.ToList();
 		}
+
+		//Одновление порядка карт в колоде
 		public int UpdateDeck(int deckId, string newCards)
 		{
 			Deck deckForUpdate = db.Decks.FirstOrDefault(deck => deck.Id == deckId);
-			if (deckForUpdate == null)
-			{
-				//return "There is no such parking";
-				return -1;
-			}
+			//Проверяем, что колода с перданным Id была найдена
+			if (deckForUpdate == null) return 1;
+			//Установливаем новый порядок карт
 			deckForUpdate.Cards = newCards;
 			db.Decks.Update(deckForUpdate);
 			Save();
-			return 1;
+			return 0;
 		}
+		//Полученое отдельной колоды
 		public Deck GetDetailDeck(int deckId)
 		{
 			Deck resultDeck = db.Decks.FirstOrDefault(deck => deck.Id == deckId);			
 			return resultDeck;
 		}
 
-		//public int GetNewDeckId()
-		//{
-		//	var decksList = db.Decks.Select(deck => new DeckShortViewModel
-		//	{
-		//								Id = deck.Id,
-		//								Name = deck.Name,
-		//								Size = deck.Size,
-		//							}).ToList();
-		//	return (decksList.Count() == 0) ? 1 : decksList.Last().Id + 1;
-		//}
+		//Метод сохранения изменений
 		private void Save()
         {
             db.SaveChanges();

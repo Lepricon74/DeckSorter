@@ -10,6 +10,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using DeckSorter.DBRepository;
+//Нужно при использовании обратного прокси-сервера
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace DeckSorter
 {
@@ -24,8 +26,10 @@ namespace DeckSorter
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Получаем строку подключения к БД из файла appsettings.json
             string connection = Configuration.GetConnectionString("PostgreSQLLocalConnection");
             //string connection = Configuration.GetConnectionString("PostgreSQLExternalConnection");
+            //Добавляем контекст DeckSorterContext в качестве сервиса в приложение
             services.AddDbContext<DeckSorterContext>(options => options.UseNpgsql(connection));
 
             services.AddControllersWithViews();
@@ -34,17 +38,19 @@ namespace DeckSorter
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            //Нужно для корректного взаимодействия с NGINX
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
-                app.UseDeveloperExceptionPage();
-            }
-            
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
+            //Включаем статические файлы
             app.UseStaticFiles();
 
+            //ПВключаем маршрутизацию 
             app.UseRouting();
 
-            app.UseAuthorization();
-
+            //Устанавливаем маршрут по умолчанию и маршруты на основе атрибутов
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

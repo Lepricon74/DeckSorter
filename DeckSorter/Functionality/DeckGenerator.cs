@@ -16,6 +16,7 @@ namespace DeckSorter.Functionality
                                       "201,206,207,208,209,210,211,212,213," +
                                       "301,306,307,308,309,310,311,312,313," +
                                       "401,406,407,408,409,410,411,412,413";
+        //Метод возвращает строку со стандартным порядком карт.
         public static string GetDeckBySize(int size)
         {
             if (size == 36) return STANDARTDECK36;

@@ -1,14 +1,9 @@
-.decksregion
-{
-     margin:auto;
-     width: auto;
-}
-
-.decksrow {
+.decksregion {
+    margin: auto;
+    width: auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 30px;
 }
 
 .deckblock {
@@ -45,13 +40,14 @@
 	height: 100%;
 }
 
-.decksrow > a {
+.decksregion > a {
     text-decoration: none;
     margin-left: 10px;
     margin-right: 10px;
+    margin-bottom: 30px;
 }
 
-.decksrow > a:hover {
+.decksregion > a:hover {
     text-decoration: none;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     text-shadow: 0 0px 0 rgba(0, 0, 0, 0.3);

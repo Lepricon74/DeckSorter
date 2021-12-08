@@ -5,6 +5,7 @@
 }
 <link rel="stylesheet" href="~/css/cardslist.css" />
 <h3>Колода "@Model.Name"</h3>
+@* Кнопки для манипулирования колодой *@
 <div class="buttonsRegion">
 	<form class="updateButton" asp-action="ReturnToOriginalState" asp-controller="Home" asp-anti-forgery="true" method="post">
 		<input type="hidden" name="deckId" value=@Model.Id>
@@ -27,8 +28,11 @@
 	@for (int i = 0; i < Model.Cards.Length; i++)
 	{
 		string imageName = Model.Cards[i];
+		//Формируем путь к картинке
 		string imagePath = "../cards/" + imageName + ".png";
-		int first=0;
+		int first = 0;
+		//Эти условия нужны для корректного отображения номера карты для колод из 36 и 52 карт
+		//Номер складывается из номера масти в 9-ричной или 13-ричной системе и номера карты 
 		if (Model.Size == 52)
 		{
 			first = (((int)Char.GetNumericValue(imageName[0])) - 1) * 13;
@@ -36,7 +40,10 @@
 		else first = (((int)Char.GetNumericValue(imageName[0])) - 1) * 9;
 		int second = Convert.ToInt32(imageName.Substring(1));
 		if ((second > 1) && (Model.Size == 36)) second -= 4;
+		//Номер карты
 		int name = first + second;
+
+		//Блок с картой
 		<div class="cardblock">
 			<div class="cardimagediv">
 				<img src=@imagePath alt="">

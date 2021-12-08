@@ -48,3 +48,4 @@ C:\Users\sasha\source\repos\DeckSorter\DeckSorter\bin\Debug\net5.0\Npgsql.dll
 C:\Users\sasha\source\repos\DeckSorter\DeckSorter\bin\Debug\net5.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\sasha\source\repos\DeckSorter\DeckSorter\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
 C:\Users\sasha\source\repos\DeckSorter\DeckSorter\obj\Debug\net5.0\Razor\Views\Home\DeckCreate.cshtml.g.cs
+C:\Users\sasha\source\repos\DeckSorter\DeckSorter\obj\Debug\net5.0\Razor\Views\Home\DeckDoesNotExist.cshtml.g.cs

@@ -9,6 +9,7 @@ using DeckSorter.Models.BaseModels;
 
 namespace DeckSorter.DBRepository.Interfaces
 {
+    //Описываем поведение класса-репозитория для работы с колодами
     public interface IDeckRepository 
     {
         int CreateDeck(Deck newDeck);
@@ -16,6 +17,5 @@ namespace DeckSorter.DBRepository.Interfaces
         List<Deck> GetDecksList();
         int UpdateDeck(int deckId, string newCards);
         Deck GetDetailDeck(int deckId);
-        //int GetNewDeckId();
     }
 }
