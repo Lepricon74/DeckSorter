@@ -11,8 +11,11 @@
 				<span asp-validation-for="Name"></span>
 			</section>
 			<section class="form-section">
-				<label asp-for="Size">Введите размер колоды</label>
-				<input class="input-field" type="number" asp-for="Size" value="52" />
+				<label asp-for="Size">Введите размер колоды</label><br />
+				<input class="input-field" type="radio" asp-for="Size" value="52" checked />
+				<span>52</span> 
+				<input class="input-field" type="radio" asp-for="Size" value="36" checked />
+				<span>36</span> <br />
 				<span asp-validation-for="Size"></span>
 			</section>			
 			<section class="form-section">
